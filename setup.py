@@ -16,4 +16,7 @@ setup(
     url="https://github.com/PrashanthaTP/gbpacman",
     packages=find_packages('gbpacman', exclude=['tests']),
     long_description=read_file('README.md'),
+    entry_points={
+        'console_scripts':['gbpacman=gbpacman.main:main']
+        }
 )
