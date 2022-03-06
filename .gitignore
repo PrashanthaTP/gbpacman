@@ -17,7 +17,9 @@ dist/
 downloads/
 eggs/
 .eggs/
+Lib/
 lib/
+!gbpacman/lib/
 lib64/
 parts/
 sdist/
