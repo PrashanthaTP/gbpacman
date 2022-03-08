@@ -8,8 +8,8 @@ url = "https://packages.msys2.org"
 logger = get_logger(__name__)
 
 
-def get_response():
-    query = f"{url}/search?q=tmux"
+def get_response(package_name="tmux"):
+    query = f"{url}/search?q={package_name}"
     response = calls.ping_url(query)
     return response
 
@@ -46,6 +46,49 @@ class TestParser(unittest.TestCase):
         title, table = parser.extract_package_table(target_tag)
         headings = parser.get_children_of_type(table.thead, **{"name": "th"})
         self.assertEqual(len(headings), 3)
+
+    def test_get_columns(self):
+        response = get_response()
+        target_tag = parser.extract(response,
+                                    filters.is_search_table,
+                                    attrs={"class": "card mb-3"},
+                                    limit=1)[0]
+        _, table = parser.extract_package_table(target_tag)
+        cols = parser.get_columns(table.thead, **{"name": "th"})
+        self.assertEqual(cols, ["Base Package", "Version", "Description"])
+
+    def test_get_packages_list(self):
+        response = get_response()
+        target_tag = parser.extract(response,
+                                    filters.is_search_table,
+                                    attrs={"class": "card mb-3"},
+                                    limit=1)[0]
+        _, table = parser.extract_package_table(target_tag)
+        packages_list = parser.get_packages_list(table)
+        self.assertEqual(len(packages_list), 1)
+        for package in packages_list:
+            self.assertTrue(isinstance(package.name, str),
+                            "Each package must have a name")
+            self.assertTrue(isinstance(package.link, str),
+                            "Each package must have a link")
+            self.assertTrue(isinstance(package.description, str),
+                            "Each package must have a description")
+            self.assertTrue(isinstance(package.version, str),
+                            "Each package must have version info")
+
+    def test_get_packages_list(self):
+        response = get_response("util-linux")
+        target_tag = parser.extract(response,
+                                    filters.is_search_table,
+                                    attrs={"class": "card mb-3"},
+                                    limit=1)[0]
+        _, table = parser.extract_package_table(target_tag)
+        packages_list = parser.get_packages_list(table)
+        self.assertEqual(len(packages_list), 1)
+        for package in packages_list:
+            package_page = calls.ping_url(package.link)
+            dd_tag = parser.get_package_info_page_link(package_page)
+            self.assertEqual(dd_tag.name, "dd")
 
 
 if __name__ == "__main__":
