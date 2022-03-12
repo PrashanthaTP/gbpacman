@@ -5,5 +5,5 @@ if($args.count -eq 0){
         $test_filepath="gbpacman/tests/test_"+$test_filename+".py"
         $message="Running test for "+$test_filepath
         echo $message
-        python -m unittest  $test_filepath
+        python -m unittest -v $test_filepath
     }
