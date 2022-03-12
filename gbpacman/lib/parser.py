@@ -9,6 +9,8 @@ logger = get_global_logger()
 PackageInfo = namedtuple(
     "PackageInfo", ["name", "description", "link", "version"])
 
+Link = namedtuple("Link", ["name", "href"])
+
 
 def parse_html_response(response, parser="html.parser"):
     return BeautifulSoup(response.text, parser)
@@ -36,7 +38,7 @@ def extract(response, filter_fn=None, *args, **kwargs):
 """
 
 
-def extract_package_table(parent_tag):
+def get_package_table(parent_tag):
     title_tag, table_container_tag = get_direct_children(parent_tag)
     # title_text = title_tag.get_text(strip=True)
     table_tag = table_container_tag.table
@@ -75,6 +77,8 @@ def get_packages_list(table_tag):
     return package_rows
 
 
+# to be removed
+# TODO: implement : depracated wrapper
 def get_package_info_page_link(package_page):
     def is_base_package_link(tag):
         prev_sibling = tag.find_previous_sibling()
@@ -89,3 +93,14 @@ def get_package_info_page_link(package_page):
 
     soup = parse_html_response(package_page)
     return soup.find(is_base_package_link)
+
+
+def get_curr_package_links(ul):
+    links = []
+    for li in ul.find_all('li'):
+        links.append(Link(li.get_text(strip=True), li.a['href']))
+    return links
+
+
+def get_download_link(tag):
+    return Link(name=tag.get_text(strip=True), href=tag['href'])
