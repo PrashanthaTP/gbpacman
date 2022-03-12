@@ -1,6 +1,18 @@
 from bs4 import BeautifulSoup
 from re import (search as re_search,
                 IGNORECASE as re_IGNORECASE)
+"""
+why some filters are in 'decorator' style
+-  to support internal state management?
+   - kind of bloat though? do you think you can convince me
+     by saying some big words like 'state' 'management'and stuff
+   - atleast make all the function consistent
+   - okay okay will do, remember its a work in progress
+   
+"""
+
+# **TODO**:
+# Make all filter function consistent
 
 
 def match_class(reference):
@@ -205,3 +217,30 @@ def is_search_table(tag):
 def get_package_table(soup):
 
     return soup.find(is_search_table)
+
+
+def is_base_package_link(tag):
+    prev_sibling = tag.find_previous_sibling()
+    if prev_sibling is None:
+        return False
+    prev_heading = re_search(r".*Binary Packages\s?:?\s?.*",
+                             prev_sibling.get_text(),
+                             re_IGNORECASE)
+    return tag.name == "dd"  \
+        and prev_sibling.name == "dt"\
+        and prev_heading is not None
+
+
+def is_download_link(tag):
+    parent = tag.parent
+    if parent is None:
+        return False
+    prev_sibling = parent.find_previous_sibling()
+    if prev_sibling is None:
+        return False
+    prev_heading = re_search(r".*File\s?:?\s?.*",
+                             prev_sibling.get_text())
+    return tag.name == "a"  \
+        and parent.name == "dd"\
+        and prev_sibling.name == "dt"\
+        and prev_heading is not None
