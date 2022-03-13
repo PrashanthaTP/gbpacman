@@ -1,0 +1,14 @@
+{
+    "packages_url":"https://packages.msys2.org/",
+    "installation_dir":"%(BASE_DIR)s%(SLASH)sinstallation",
+    "overwrite":false,
+    "for_multiple_packages":"all",
+
+    "exe":{
+    "zstd_installation_dir":"%(BASE_DIR)s%(SLASH)sbin",
+    "zstd_exe":"",
+    "zstd_url" : "https://github.com/facebook/zstd/releases/download/v1.5.2/zstd-1.5.2.tar.gz",
+    "zstd_url_windows" : "https://github.com/facebook/zstd/releases/download/v1.5.2/zstd-v1.5.2-win64.zip"
+    }
+    
+}
