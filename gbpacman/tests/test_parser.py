@@ -182,7 +182,8 @@ class TestParser(unittest.TestCase):
             self.assertTrue(os.path.isfile(os.path.join("out", filename)))
 
     def test_unzip(self):
-        downloaded_file = r"out\libutil-linux-2.35.2-1-x86_64.pkg.tar.zst"
+        downloaded_file = os.path.join(
+            "out", "libutil-linux-2.35.2-1-x86_64.pkg.tar.zst")
         self.assertTrue(os.path.isfile(downloaded_file))
         api.unzip_file(downloaded_file, "out")
 
