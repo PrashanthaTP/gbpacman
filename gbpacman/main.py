@@ -42,8 +42,27 @@ def list_matching_packages(package_name):
     ui.display_packages(packages)
 
 
+# TODO:
+# Rethink about selecting first package from
+# packages_list
+def install_package(package_name):
+    # installs the first package found when searched
+    packages_list = get_list_of_packages(package_name)
+    if len(packages_list) == 0:
+        logger.error("No package found matching the name: %s" % (package_name))
+        return
+
+    downloaded_file = api.download_package(packages_list[0])
+    if downloaded_file is not None:  # if not already installed
+        api.install_downloaded_package(downloaded_file, packages_list[0].name)
+    logger.info("Please add %s to path" % (settings["installation_dir"]))
+
+
 def main():
     options = get_cmd_options()
     package_name = options.list
     if package_name:
         list_matching_packages(package_name)
+    package_name = options.install
+    if package_name:
+        install_package(package_name)
