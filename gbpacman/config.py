@@ -13,7 +13,7 @@ def load_json(json_file) -> dict:
 
 
 def is_key_points_to_path(key: str):
-    allowed_suffixes = ["dir", "filename", "filepath", "path"]
+    allowed_suffixes = ["dir", "filename", "filepath", "path", "exe"]
     for suffix in allowed_suffixes:
         if key.endswith(suffix):
             return True
