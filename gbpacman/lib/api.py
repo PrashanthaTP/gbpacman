@@ -1,5 +1,4 @@
 import os
-from zipfile import ZipFile
 from .calls import ping_url
 from gbpacman.utils import get_global_logger
 
@@ -23,9 +22,3 @@ def download_file(url, download_dir: str):
             file.write(chunk)
     logger.info("File downloaded : %s" %
                 (out_filepath))
-
-
-def unzip_file(zip_file, target_dir):
-
-    with ZipFile(zip_file, 'r') as zipref:
-        zipref.extractall(target_dir)
