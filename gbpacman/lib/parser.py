@@ -19,6 +19,11 @@ def parse_html_response(response, parser="html.parser"):
 def get_direct_children(tag):
     return tag.find_all(recursive=False)
 
+# TODO: find_all returns a list
+# but in most of the cases we expect only one result
+# so it makes sense to return the expected found item
+# rather a list of single item
+
 
 def extract(response, filter_fn=None, *args, **kwargs):
     try:
