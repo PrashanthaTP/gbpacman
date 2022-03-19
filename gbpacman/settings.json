@@ -1,5 +1,5 @@
 {
-    "packages_url":"https://packages.msys2.org/",
+    "packages_url":"https://packages.msys2.org",
     "installation_dir":"%(BASE_DIR)s%(SLASH)sinstallation",
     "overwrite":false,
     "for_multiple_packages":"all",
