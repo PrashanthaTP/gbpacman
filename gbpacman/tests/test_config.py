@@ -1,7 +1,7 @@
 import unittest
 from plogger import get_logger
 
-from gbpacman import settings
+from gbpacman.config import settings
 
 logger = get_logger(__name__)
 

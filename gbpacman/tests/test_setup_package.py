@@ -3,7 +3,7 @@ import unittest
 from plogger import get_logger
 
 from gbpacman.lib import setup_package
-from gbpacman import settings
+from gbpacman.config import settings
 
 url = "https://packages.msys2.org"
 
