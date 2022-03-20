@@ -7,8 +7,11 @@ def read_file(fname):
 
 
 # https://stackoverflow.com/a/54216163/12988588 : dependency links
-install_requires = [
-    'plogger @ git+ssh://git@github.com/PrashanthaTP/plogger.git@main#egg=plogger-0.0.1']
+def get_requirements(req_file):
+    with open(req_file, 'r') as file:
+        return file.readlines()
+
+
 setup(
     name="gbpacman",
     version="0.0.1",
@@ -21,7 +24,7 @@ setup(
     package_data={"gbpacman": ["settings.json", "README.md"]},
     package_dir={"gbpacman": "gbpacman"},
     include_package_data=True,
-    install_requires=install_requires,
+    install_requires=get_requirements('requirements.txt'),
     long_description=read_file('README.md'),
     entry_points={
         'console_scripts': ['gbpacman=gbpacman.main:main']
