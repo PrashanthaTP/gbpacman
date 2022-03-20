@@ -43,11 +43,13 @@ append_file  "## ${curr_release} ( $(get_date) )"
 add_newlines 1
 
 for prefix in ${prefixes[@]};do
+    echo "collecting : $prefix"
     append_file  "### ${prefix}" 
     add_newlines 1
-    append_file "$(git log --oneline ${last_tag}..HEAD | sed -E "s/\*//g" | grep $prefix)"
+    append_file "$(git log --oneline ${last_tag}..HEAD | sed -E "s/\*//g" | grep $prefix | awk '{print "- " $0}')"
     add_newlines 1
 done
 
 append_file  "${prev_log}"
 
+echo "Changelng Updated."
