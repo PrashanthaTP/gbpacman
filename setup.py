@@ -15,8 +15,9 @@ setup(
     keywords="msys2 gitbash bash pacman",
     url="https://github.com/PrashanthaTP/gbpacman",
     packages=find_packages('gbpacman', exclude=['tests']),
+    package_dir={"gbpacman": "gbpacman"},
     long_description=read_file('README.md'),
     entry_points={
-        'console_scripts':['gbpacman=gbpacman.main:main']
-        }
+        'console_scripts': ['gbpacman=gbpacman.main:main']
+    }
 )
