@@ -1,4 +1,4 @@
-# GBPACMAN
+# gbpacman
 
 ![BannerImage](docs/images/gbpacman_banner.png)
 
@@ -40,6 +40,8 @@ optional arguments:
                         (default: None)
 ```
 
+> Note: `--uninstall` not yet implemented.
+
 ## Dev
 
 ### Todo
@@ -57,3 +59,7 @@ optional arguments:
 - Others
   - Is logging really needed to be done through [plogger](https://github.com/PrashanthaTP/plogger)?
 
+
+# License
+
+MIT
