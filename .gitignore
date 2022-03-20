@@ -1,4 +1,10 @@
 #
+bin/          # zstd exe
+temp/         # downlaoded zip files
+installation/ # unzipped files
+out/           
+store/        # details of downloaded files
+#
 Scripts
 pyvenv.cfg
 # Byte-compiled / optimized / DLL files
@@ -17,7 +23,9 @@ dist/
 downloads/
 eggs/
 .eggs/
+Lib/
 lib/
+!gbpacman/lib/
 lib64/
 parts/
 sdist/
