@@ -7,7 +7,7 @@ def read_file(fname):
 
 
 #https://stackoverflow.com/a/54216163/12988588 : dependency links
-install_requires = ['plogger @ git+https://github.com/PrashanthaTP/plogger.git@main#egg=plogger-0.0.1']
+install_requires = ['plogger @ git+ssh://git@github.com/PrashanthaTP/plogger.git@main#egg=plogger-0.0.1']
 setup(
     name="gbpacman",
     version="0.0.1",
