@@ -21,6 +21,7 @@
 
 ### Fix
 
+- b13eb05 Fix(dev): regenerate changelog
 - 75b8370 Fix(setup): patch errors in setup,zstd
 
 ### Util
@@ -61,6 +62,7 @@
 
 ### Dev
 
+- 5c2990c Dev(pack): add python version req in setup.py
 - e53531b Dev(pack): add LICENSE,update readme,setup.py
 - 5d9ac75 Dev(docs): add changelog and update readme
 - de5640c Dev(pack): add script for changelog generation
