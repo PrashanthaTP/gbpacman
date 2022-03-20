@@ -6,9 +6,8 @@ def read_file(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
-install_requires = ['plogger==0.0.1']
-dependency_links = [
-    "plogger @ git+https://github.com/PrashanthaTP/plogger.git@main#egg=plogger-0.0.1"]
+#https://stackoverflow.com/a/54216163/12988588 : dependency links
+install_requires = ['plogger @ git+https://github.com/PrashanthaTP/plogger.git@main#egg=plogger-0.0.1']
 setup(
     name="gbpacman",
     version="0.0.1",
@@ -21,7 +20,6 @@ setup(
     package_dir={"gbpacman": "gbpacman"},
     include_package_data=True,
     install_requires=install_requires,
-    dependency_links=dependency_links,
     long_description=read_file('README.md'),
     entry_points={
         'console_scripts': ['gbpacman=gbpacman.main:main']
