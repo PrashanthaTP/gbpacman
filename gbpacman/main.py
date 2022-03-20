@@ -55,7 +55,7 @@ def install_package(package_name):
     downloaded_file = api.download_package(packages_list[0])
     if downloaded_file is not None:  # if not already installed
         api.install_downloaded_package(downloaded_file, packages_list[0].name)
-    logger.info("Please add %s to path" % (settings["installation_dir"]))
+    logger.info("Please add '%s' to path" % (settings["installation_dir"]))
 
 
 def main():

@@ -29,6 +29,10 @@ def patch_paths(dictionary: dict, patches: dict):
         else:
             if is_key_points_to_path(key):
                 patched_value = value % patches
+                if "." in os_path.basename(patched_value):
+                    os_makedirs(os_path.dirname(patched_value),exist_ok=True)
+                else:
+                    os_makedirs(patched_value,exist_ok=True)
             else:
                 patched_value = value
         patched_dict[key] = patched_value
