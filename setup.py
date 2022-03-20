@@ -6,7 +6,7 @@ def read_file(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
-install_requires = ['plogger']
+install_requires = ['plogger==0.0.1']
 dependency_links = [
     "plogger @ git+https://github.com/PrashanthaTP/plogger.git@main#egg=plogger-0.0.1"]
 setup(
