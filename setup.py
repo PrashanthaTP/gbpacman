@@ -25,6 +25,7 @@ setup(
     package_dir={"gbpacman": "gbpacman"},
     include_package_data=True,
     install_requires=get_requirements('requirements.txt'),
+    python_requires=">=3.7",
     long_description=read_file('README.md'),
     entry_points={
         'console_scripts': ['gbpacman=gbpacman.main:main']
