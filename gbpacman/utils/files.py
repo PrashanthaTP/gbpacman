@@ -11,14 +11,19 @@ from gbpacman.config import settings
 
 
 def unzip_tar(zip_file, target_dir, mode="r:"):
-    tar = tarfile.open(zip_file, mode)
-    tar.extractall(path=target_dir)
-    tar.close()
-
+    with tarfile.open(zip_file, mode) as tar:
+        tar.extractall(path=target_dir)
 
 # TODD: do something recursive
+
+
 def unzip_file(zip_file, target_dir, logger=None):
+    temp_target_dir = zip_file.split(".")[0]
+    target_dir = os_path.join(target_dir, temp_target_dir)
+    os_makedirs(target_dir, exist_ok=True)
+
     def get_unzip_filepath(zip_name):
+        nonlocal target_dir
         return os_path.join(target_dir, zip_name)
 
     ext = ""
@@ -38,7 +43,7 @@ def unzip_file(zip_file, target_dir, logger=None):
         ext = "tar.gz"
 
     elif zip_file.endswith("tar.xz"):
-        unzip_tar(zip_file, target_dir, mode="r")
+        unzip_tar(zip_file, target_dir, mode="r:xz")
         ext = "tar.xz"
 
     elif zip_file.endswith("zip"):
@@ -62,7 +67,15 @@ def unzip_file(zip_file, target_dir, logger=None):
                    target_dir=target_dir, logger=logger)
 
         ext = "tar.zst"
-    return get_unzip_filepath(zip_file.rstrip(ext))
+    # to handle cases where the files are extracted directly to target dir
+    # instead of extracting inside a new folder with the zip_file name
+    possible_unzipped_folder = zip_file.rstrip(ext)
+    unzipped_dirs = os_listdir(target_dir)
+    if possible_unzipped_folder in unzipped_dirs:
+        # unzipping resulted in new folder
+        return get_unzip_filepath(possible_unzipped_folder)
+    else:
+        return target_dir  # files are directly extracted to given directory
 
 
 # TODO : move instead of copying?
