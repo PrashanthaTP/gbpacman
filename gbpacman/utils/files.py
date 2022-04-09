@@ -37,6 +37,10 @@ def unzip_file(zip_file, target_dir, logger=None):
         unzip_tar(zip_file, target_dir, mode="r:gz")
         ext = "tar.gz"
 
+    elif zip_file.endswith("tar.xz"):
+        unzip_tar(zip_file, target_dir, mode="r")
+        ext = "tar.xz"
+
     elif zip_file.endswith("zip"):
         with ZipFile(zip_file, 'r') as zipref:
             zipref.extractall(target_dir)
