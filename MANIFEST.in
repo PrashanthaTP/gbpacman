@@ -1,2 +1,2 @@
-include README.md requirement.txt requirements_dev.txt LICENSE
+include README.md requirement.txt requirements_dev.txt LICENSE __version__
 recursive-include tests *.py

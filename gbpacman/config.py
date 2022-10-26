@@ -30,21 +30,29 @@ def patch_paths(dictionary: dict, patches: dict):
             if is_key_points_to_path(key):
                 patched_value = value % patches
                 if "." in os_path.basename(patched_value):
-                    os_makedirs(os_path.dirname(patched_value),exist_ok=True)
+                    os_makedirs(os_path.dirname(patched_value), exist_ok=True)
                 else:
-                    os_makedirs(patched_value,exist_ok=True)
+                    os_makedirs(patched_value, exist_ok=True)
             else:
                 patched_value = value
         patched_dict[key] = patched_value
     return patched_dict
 
 
+def get_version_string(version_info_file="__version__"):
+    with open(version_info_file, 'r') as file:
+        return file.readline()
+
+
 class Settings:
     def __init__(self, dictionary: dict):
         self.store = dictionary
 
+        curr_dir = os_path.dirname(os_path.abspath(__file__))
         if "BASE_DIR" not in self.store:
-            self.store["BASE_DIR"] = os_path.dirname(os_path.abspath(__file__))
+            self.store["BASE_DIR"] = curr_dir
+        self.store["VERSION"] = get_version_string(version_info_file=os_path.join(curr_dir,
+                                                                                  "__version__"))
         self.patch_values()
 
     def patch_values(self):

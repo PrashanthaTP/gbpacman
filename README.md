@@ -1,8 +1,9 @@
+![gbpacman](docs/images/gbpacman_banner_v2.png)
+
 # gbpacman
-
-![BannerImage](docs/images/gbpacman_banner.png)
-
-Package Manager for Git Bash
+>
+> Package Manager for Git Bash
+>
 
 ## What it does ?
 
