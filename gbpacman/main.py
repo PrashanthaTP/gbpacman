@@ -59,11 +59,21 @@ def install_package(package_name):
                 (os_path.join(settings["installation_dir"], "usr", "bin")))
 
 
+def install_from_url(url:str):
+    package = parser.make_package(url)
+    downloaded_file = api.download_package_from_url(package)
+
+    if downloaded_file is not None:  # if not already installed
+        api.install_downloaded_package(downloaded_file, package.name)
+    logger.info("Please add '%s' to path" %
+                (os_path.join(settings["installation_dir"], "usr", "bin")))
+
 def main():
     options = get_cmd_options(settings)
-    package_name = options.list
-    if package_name:
+    if options.list:
         list_matching_packages(package_name)
-    package_name = options.install
-    if package_name:
+    if options.install:
         install_package(package_name)
+    if options.install_from_url:
+        install_from_url(url=options.install_from_url)
+    

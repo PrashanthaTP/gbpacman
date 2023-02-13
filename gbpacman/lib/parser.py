@@ -1,6 +1,7 @@
 from collections import namedtuple
 from bs4 import BeautifulSoup
 from re import (search as re_search,
+                match as re_match,
                 IGNORECASE as re_IGNORECASE)
 from gbpacman.utils.logger import get_global_logger
 logger = get_global_logger()
@@ -109,3 +110,24 @@ def get_curr_package_links(ul):
 
 def get_download_link(tag):
     return Link(name=tag.get_text(strip=True), href=tag['href'])
+
+def make_package(url):
+    package_name = None
+    package_version = None
+    package_name_match = re_match(r'(^\w+)',url.split("/")[-1])
+    package_version_match = re_match(r'(\w*)-((\d*\.)*(\d*)(-\d*)?)-x\d',
+                                     url.split("/")[-1])
+    if package_name_match is None:
+        raise ValueError(f"Package {url.split('/')[-1]} couldn't be parsed to extract the package name.\nGiven url {url}")
+    else:
+        package_name=package_name_match.group(1)
+
+    if package_version_match is None:
+        raise ValueError(f"Url of package {package_name} couldn't be parsed to extract the package version.\nGiven url {url}")
+    else:
+        package_version = package_version_match.group(2)
+
+    return PackageInfo(name=package_name,
+                       description="",
+                       link=url,
+                       version=package_version)

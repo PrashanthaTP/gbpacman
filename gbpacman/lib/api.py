@@ -11,8 +11,8 @@ from gbpacman.utils import unzip_file, recursive_copy
 logger = get_global_logger()
 
 
-TEMP_DIR = settings["temp_dir"]
-INSTALLTION_DIR = settings["installation_dir"]
+TEMP_DIR:str = settings["temp_dir"]
+INSTALLTION_DIR:str = settings["installation_dir"]
 
 
 def download_file(url, download_dir: str):
@@ -121,6 +121,17 @@ def download_package(package):
     file_name = download_file(file_download_link.href, download_dir=TEMP_DIR)
     return os_path.join(file_name)
 
+def download_package_from_url(package:parser.PackageInfo):
+    file_path = check_if_already_downloaded(
+        os_path.basename(package.link))
+    if file_path is not None:
+        logger.debug(f"Skipping downloading for package : {package.name}")
+        logger.debug(
+            f"{os_path.basename(package.link)} is already downloaded.")
+        return file_path
+
+    file_name = download_file(package.link, download_dir=TEMP_DIR)
+    return os_path.join(file_name)
 
 def install_downloaded_package(package_file_path, package_name):
     package_info_file = check_if_already_installed(package_name)
