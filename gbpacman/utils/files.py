@@ -34,7 +34,7 @@ def unzip_file(zip_file, target_dir, logger=None):
 
     if zip_file.endswith("tar"):
         unzip_tar(zip_file,
-                  target_dir=os_path.join(target_dir, zip_file.rstrip(".tar")),
+                  target_dir,
                   mode="r:")
 
         ext = "tar"
