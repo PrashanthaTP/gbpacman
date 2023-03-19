@@ -1,5 +1,46 @@
 # Changelog
 
+## v0.3.0 ( 19/03/2023 )
+
+### Feat(api):
+
+Add cmd option --install-from-url
+
++ Instead of searching given pacakge in msys,
+  user can directly pass zip file link
++ New functions :
+  - `make_package` : creates PackageInfo container from given url
+  - `download_package_from_url` : downloads package from given url
+    directly, instead of searching the package name first
+
+### Fix(util)
+
+Fix(util,#5): update handling of unzipping tar files
+
++ The target_dir path was already beign computed at the beginning of the
+  function.
+  For the part handling .tar unzipping, the target_dir option being
+  computed again which is unnecessary and causes problems with zip files
+  having multiple 'dots' in their name
+
+  For example, before this fix
+  for --install-with-url
+  https://mirror.msys2.org/msys/x86_64/libreadline-8.2.001-3-x86_64.pkg.tar.zst
+  the temp folder show following content
+  where `libreadline-8` and `libreadline-8.2.001-3-x86_64.pkg` both
+  represents target directory
+
+  The contents were being unzipped to libreadline-8.2.001-3-x86_64.pkg/
+  while the program was used to think unzipped files are available in
+  `libreadline-8/`
+   ```
+   libreadline-8/
+   libreadline-8.2.001-3-x86_64.pkg/
+   libreadline-8.2.001-3-x86_64.pkg.tar.zst
+   libreadline-8.2.001-3-x86_64.pkg.tar
+   ```
+## v0.2.0 ( 19/03/2023 )
+
 ## v0.1.0 ( 20/03/2022 )
 
 ### Feat
